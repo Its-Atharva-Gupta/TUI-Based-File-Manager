@@ -1,6 +1,7 @@
 # Shellman
 
-![Uploading demo2.gif…]()
+![demo2](https://github.com/user-attachments/assets/ceda89eb-f891-484a-aa02-2a2ab9a8da38)
+
 
 
 A fast, lightweight, terminal-based file manager and editor built with [Textual](https://github.com/Textualize/textual). Runs on Linux, macOS, and Windows.
