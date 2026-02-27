@@ -6,12 +6,18 @@ A fast, lightweight, terminal-based file manager and editor built with [Textual]
 
 ## Features
 
-- Navigate your filesystem with a dual-panel layout — directory tree on the left, file list on the right
+- Dual-panel layout — directory tree on the left, file list on the right
 - Edit any text file directly in the terminal with syntax highlighting for 15+ languages
-- Create, rename, delete, copy, and move files and directories
-- Toggle hidden files on and off
-- File info panel showing size, permissions, and timestamps
-- Keyboard-driven — no mouse required
+- Create, rename, delete, copy, cut, and move files and directories
+- Bulk selection — select multiple files with Space and operate on all at once
+- Undo — every operation is reversible, deletes go to a trash folder
+- Git integration — see modified, staged, untracked, and deleted files at a glance
+- Archive support — zip selected files or extract any archive in place
+- File search — filter the current directory in real time
+- Sort by name, size, date modified, or file type
+- Open any file with the default system application
+- Disk usage indicator in the status bar
+- Full keyboard shortcut reference accessible at any time with `?`
 
 ---
 
@@ -19,68 +25,98 @@ A fast, lightweight, terminal-based file manager and editor built with [Textual]
 
 ### Linux (Debian / Ubuntu / Pop!_OS)
 
-Download `shellman-1.0.0.deb` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
+Download `shellman_amd64.deb` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
 
 ```bash
-sudo apt install ./shellman-1.0.0.deb
+sudo apt install ./shellman_amd64.deb
 ```
 
 ### Linux (Fedora / RHEL)
 
-Download `shellman-1.0.0.rpm` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
+Download `shellman_amd64.rpm` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
 
 ```bash
-sudo dnf install ./shellman-1.0.0.rpm
+sudo dnf install ./shellman_amd64.rpm
 ```
 
 ### Linux (Arch)
 
-Download the `shellman-linux` binary from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
+No dedicated package is provided for Arch. Build from source using the instructions below, or copy the binary manually:
 
 ```bash
-sudo cp shellman-linux /usr/local/bin/shellman
+sudo cp shellman_amd64 /usr/local/bin/shellman
 sudo chmod +x /usr/local/bin/shellman
 ```
 
 ### macOS
 
-Download the `shellman-macos` binary from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
+Download `shellman_macos` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page, then:
 
 ```bash
-sudo cp shellman-macos /usr/local/bin/shellman
+sudo cp shellman_macos /usr/local/bin/shellman
 sudo chmod +x /usr/local/bin/shellman
 ```
 
 ### Windows
 
-Download `shellman-windows.exe` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page. No installation needed — run it directly from a terminal:
+Download `shellman_amd64.exe` from the [Releases](https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager/releases) page. No installation needed — run it directly from a terminal:
 
 ```
-shellman.exe
+shellman_amd64.exe
 ```
 
 ---
 
 ## Keyboard Shortcuts
 
-| Key        | Action              |
-|------------|---------------------|
-| Enter      | Open directory      |
-| Backspace  | Go up one directory |
-| E          | Edit selected file  |
-| N          | New file            |
-| D          | New directory       |
-| R          | Rename              |
-| X          | Delete              |
-| C          | Copy                |
-| V          | Paste               |
-| I          | File info           |
-| H          | Toggle hidden files |
-| F5         | Refresh             |
-| Ctrl+L     | Go to path          |
-| Ctrl+S     | Save file (in editor) |
-| Esc        | Close editor        |
-| Q          | Quit                |
+Press `?` inside the app to open the full shortcut reference at any time.
+
+| Key       | Action                                      |
+|-----------|---------------------------------------------|
+| Enter     | Open directory                              |
+| Backspace | Go up one level                             |
+| Ctrl+L    | Go to path                                  |
+| H         | Toggle hidden files                         |
+| F5        | Refresh                                     |
+| Space     | Select / deselect item (bulk select)        |
+| N         | New file                                    |
+| D         | New directory                               |
+| R         | Rename                                      |
+| X         | Delete (moved to ~/.shellman_trash)         |
+| C         | Copy                                        |
+| T         | Cut                                         |
+| V         | Paste                                       |
+| U         | Undo last operation                         |
+| E         | Edit file                                   |
+| O         | Open with default app                       |
+| Z         | Zip selected files / Extract archive        |
+| I         | File info                                   |
+| S         | Cycle sort (name / size / modified / type)  |
+| /         | Filter files in current directory           |
+| Escape    | Clear filter                                |
+| ?         | Show all keyboard shortcuts                 |
+| Q         | Quit                                        |
+
+### Inside the editor
+
+| Key    | Action              |
+|--------|---------------------|
+| Ctrl+S | Save file           |
+| Escape | Close without saving|
+
+---
+
+## Git Status Indicators
+
+When inside a git repository, the G column in the file list shows the status of each file:
+
+| Symbol | Meaning   |
+|--------|-----------|
+| M      | Modified  |
+| A      | Staged    |
+| ?      | Untracked |
+| D      | Deleted   |
+| R      | Renamed   |
 
 ---
 
@@ -92,7 +128,7 @@ Requires Python 3.9 or later.
 git clone https://github.com/Its-Atharva-Gupta/TUI-Based-File-Manager.git
 cd TUI-Based-File-Manager
 pip install textual
-python src/file_manager.py
+python src/main.py
 ```
 
 ---
