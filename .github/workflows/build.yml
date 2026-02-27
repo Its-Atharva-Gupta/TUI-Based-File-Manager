@@ -20,7 +20,7 @@ jobs:
 
       - name: Build binary
         run: |
-          pyinstaller --onefile --collect-all rich --collect-all textual --name shellman file_manager.py
+          pyinstaller --onefile --collect-all rich --collect-all textual --name shellman main.py
 
       - name: Create RPM spec file
         run: |
