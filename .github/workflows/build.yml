@@ -1,0 +1,96 @@
+name: Build Shellman
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # allows manual trigger from GitHub UI
+
+jobs:
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller textual
+
+      - name: Build binary
+        run: |
+          pyinstaller --onefile --collect-all rich --collect-all textual --name shellman file_manager.py
+
+      - name: Package as .deb
+        run: |
+          mkdir -p shellman-deb/DEBIAN
+          mkdir -p shellman-deb/usr/local/bin
+          cp dist/shellman shellman-deb/usr/local/bin/
+          chmod 755 shellman-deb/usr/local/bin/shellman
+          cat > shellman-deb/DEBIAN/control << EOF
+          Package: shellman
+          Version: 1.0.0
+          Architecture: amd64
+          Maintainer: Its-Atharva-Gupta <itsatharva.gupta@gmail.com>
+          Description: A user friendly Terminal based file manager and editor.
+          EOF
+          chmod 755 shellman-deb/DEBIAN
+          dpkg-deb --build shellman-deb shellman.deb
+
+      - name: Upload .deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: shellman-linux.deb
+          path: shellman.deb
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller textual
+
+      - name: Build binary
+        run: |
+          pyinstaller --onefile --collect-all rich --collect-all textual --name shellman file_manager.py
+
+      - name: Upload .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: shellman-windows.exe
+          path: dist/shellman.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller textual
+
+      - name: Build binary
+        run: |
+          pyinstaller --onefile --collect-all rich --collect-all textual --name shellman file_manager.py
+
+      - name: Upload macOS binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: shellman-macos
+          path: dist/shellman
