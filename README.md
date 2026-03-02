@@ -157,13 +157,6 @@ The script will automatically detect your operating system, install the required
 - [Textual](https://github.com/Textualize/textual) - TUI framework
 - [Rich](https://github.com/Textualize/rich) - Terminal formatting (pulled in by Textual)
 
----
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
-
----
 
 ## Author
 
